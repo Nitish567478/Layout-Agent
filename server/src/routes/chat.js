@@ -664,7 +664,8 @@ router.post('/', async (req, res) => {
             : 'The LLM response could not be used, so I applied the built-in layout rules instead.';
       }
     } else if (deterministic.length) {
-      explanation = 'No OPENAI_API_KEY is configured, so I used the built-in layout rules for this change.';
+      explanation = status === 200 ? 'Layout updated successfully.' 
+      : 'No OPENAI_API_KEY is configured, so I used the built-in layout rules for this change.';
     }
 
     const updatedLayout = applyTransformsToLayout(layout, transforms);
