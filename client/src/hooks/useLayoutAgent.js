@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
+import { api } from '../api.js';
 import initialLayout from '../data/initialLayout.json';
+
 
 const STORAGE_KEY = 'layout-agent-state-v1';
 const initialMessages = [
@@ -58,11 +59,12 @@ export default function useLayoutAgent() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post('/api/chat', {
+      const { data } = await api.post('/api/chat', {
         message: trimmed,
         layout,
         history
       });
+
 
       if (data?.updatedLayout) setLayout(data.updatedLayout);
       const assistant = data?.assistantMessage || 'Updated layout.';
